@@ -8,6 +8,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-color: #FFB5CA;
 
   /* Police serif globale */
   --font-serif: 'EB Garamond', serif;
@@ -26,4 +27,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-serif);
+  overflow-x: hidden;
+}
+
+/* Transitions fluides */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Animation d'entrée pour le contenu */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
