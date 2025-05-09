@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
-import GooeyNav from './ReactBits/GooeyNav'
+import GooeyNav from './ReactBits/Nav/GooeyNav'
 
 const MainContent: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -11,13 +11,13 @@ const MainContent: React.FC = () => {
   // Configuration des éléments du menu
   const navItems = [
     { label: 'Accueil', href: '#' },
-    { label: 'Services', href: '/' },
-    { label: 'Portfolio', href: '/' },
-    { label: 'Contact', href: '/' }
+    { label: 'Services', href: '#services' },
+    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'Contact', href: '#contact' }
   ]
   
   useEffect(() => {
-    if (!titleRef.current || !navRef.current) return
+    if (!titleRef.current) return
     
     // Animation pour faire apparaître le titre progressivement
     gsap.fromTo(
@@ -26,12 +26,14 @@ const MainContent: React.FC = () => {
       { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
     )
     
-    // Animation pour faire apparaître la navigation
-    gsap.fromTo(
-      navRef.current,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.6 }
-    )
+    // Animation de la navigation, indépendamment du titre
+    if (navRef.current) {
+      gsap.fromTo(
+        navRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.6 }
+      )
+    }
     
   }, [])
   
@@ -39,7 +41,7 @@ const MainContent: React.FC = () => {
     <div className="pt-8 pb-20">
       <h1 
         ref={titleRef} 
-        className="flex pt-12 justify-center w-full text-4xl font-extrabold opacity-0 mt-12 mb-12"
+        className="flex pt-12 pb-12 justify-center w-full text-4xl font-extrabold opacity-0 mt-12 mb-12"
       >
         Solutions digitales sur mesure.
       </h1>
@@ -52,14 +54,15 @@ const MainContent: React.FC = () => {
         <GooeyNav 
           items={navItems}
           particleCount={15}
-          particleDistances={[90, 10]}
+          particleDistances={[90, 10]} 
           particleR={100}
           initialActiveIndex={0}
           animationTime={600}
           timeVariance={300}
-          colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+          colors={[1, 2, 3, 4, 1, 2, 3, 4]} // Utilise les couleurs définies dans globals.css
         />
       </div>
+      
     </div>
   )
 }
