@@ -1,19 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
-// replace icons with your own if needed
-import {
-  FiCircle,
-  FiCode,
-  FiFileText,
-  FiLayers,
-  FiLayout,
-} from "react-icons/fi";
+
 
 export interface CarouselItem {
   title: string;
   description: string;
   id: number;
-  icon: JSX.Element;
+  image: string; // Changé de icon à image
 }
 
 export interface CarouselProps {
@@ -29,27 +22,27 @@ export interface CarouselProps {
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     title: "Site Vitrine",
-    description: "Image de marque impactante et SEO optimisé",
+    description: "Image de marque percutante avec optimisation SEO avancée",
     id: 1,
-    icon: <FiFileText className="h-[16px] w-[16px] text-white" />,
+    image: "./vitrine.png", // Remplacé par une image
   },
   {
     title: "Solution de Réservation",
-    description: "Site avec portail de réservation et application mobile pour la gestion Admin",
+    description: "Plateforme complète avec portail client et interface d'administration mobile",
     id: 2,
-    icon: <FiCircle className="h-[16px] w-[16px] text-white" />,
+    image: "/images/reservation.jpg", // Remplacé par une image
   },
   {
     title: "Design 3D",
-    description: "Icon et modéle 3D personalisé",
+    description: "Icônes et modèles 3D sur mesure pour votre identité visuelle",
     id: 3,
-    icon: <FiLayers className="h-[16px] w-[16px] text-white" />,
+    image: "/images/design-3d.jpg", // Remplacé par une image
   },
   {
     title: "Motion Design",
-    description: "Vidéo pour campagne publicitarie ou contenue educatifs",
+    description: "Animations vidéo pour campagnes publicitaires et contenus pédagogiques",
     id: 4,
-    icon: <FiLayout className="h-[16px] w-[16px] text-white" />,
+    image: "/images/motion-design.jpg", // Remplacé par une image
   },
 ];
 
@@ -198,30 +191,57 @@ export default function Carousel({
           return (
             <motion.div
               key={index}
-              className={`relative shrink-0 flex flex-col ${
+              className={`relative shrink-0 ${
                 round
-                  ? "items-center justify-center text-center bg-[#060606] border-0"
-                  : "items-start justify-between bg-[#222] border border-[#222] rounded-[12px]"
-              } overflow-hidden cursor-grab active:cursor-grabbing`}
+                  ? "flex flex-col items-center justify-center text-center bg-[#060606] border-0"
+                  : "bg-[#222] border border-[#222] rounded-[12px] overflow-hidden"
+              } cursor-grab active:cursor-grabbing`}
               style={{
                 width: itemWidth,
-                height: round ? itemWidth : "100%",
+                height: round ? itemWidth : "auto",
                 rotateY: rotateY,
                 ...(round && { borderRadius: "50%" }),
               }}
               transition={effectiveTransition}
             >
-              <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060606]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <div className="mb-1 font-black text-lg text-white">
-                  {item.title}
+              {!round && (
+                <div className="flex flex-row">
+                  {/* Contenu texte à gauche */}
+                  <div className="p-5 flex flex-col justify-center w-2/3">
+                    <div className="mb-1 font-black text-lg text-white">
+                      {item.title}
+                    </div>
+                    <p className="text-sm text-white">{item.description}</p>
+                  </div>
+                  
+                  {/* Image à droite */}
+                  <div className="w-1/3 h-full">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-4/5 h-4/5 object-cover" 
+                    />
+                  </div>
                 </div>
-                <p className="text-sm text-white">{item.description}</p>
-              </div>
+              )}
+
+              {round && (
+                <>
+                  <div className="p-0 m-0">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-24 h-24 object-cover rounded-full mb-4" 
+                    />
+                  </div>
+                  <div className="p-3">
+                    <div className="mb-1 font-black text-lg text-white">
+                      {item.title}
+                    </div>
+                    <p className="text-sm text-white">{item.description}</p>
+                  </div>
+                </>
+              )}
             </motion.div>
           );
         })}

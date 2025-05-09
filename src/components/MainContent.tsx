@@ -38,7 +38,7 @@ const MainContent: React.FC = () => {
     <div className="pt-8 pb-20">
       <h1 
         ref={titleRef} 
-        className="flex pt-20 pb-8 justify-center w-full text-4xl font-extrabold opacity-0 mt-12 mb-12"
+        className="flex pt-20 pb-8 justify-center w-full text-4xl color-[#222222] font-extrabold opacity-0 mt-12 mb-12"
       >
         Solutions digitales sur mesure.
       </h1>
