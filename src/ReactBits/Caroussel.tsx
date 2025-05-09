@@ -30,13 +30,13 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     title: "Solution de Réservation",
     description: "Plateforme complète avec portail client et interface d'administration mobile",
     id: 2,
-    image: "/images/reservation.jpg", // Remplacé par une image
+    image: "./rdv.png", // Remplacé par une image
   },
   {
     title: "Design 3D",
     description: "Icônes et modèles 3D sur mesure pour votre identité visuelle",
     id: 3,
-    image: "/images/design-3d.jpg", // Remplacé par une image
+    image: "./3d.png", // Remplacé par une image
   },
   {
     title: "Motion Design",
