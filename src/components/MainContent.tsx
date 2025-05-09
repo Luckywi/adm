@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Nav from './Nav'
+import Carousel from '../ReactBits/Caroussel'
 
 
 const MainContent: React.FC = () => {
@@ -43,6 +44,17 @@ const MainContent: React.FC = () => {
       </h1>
 
       <Nav />
+
+      <div className='flex justify-center pt-8'>
+  <Carousel
+    baseWidth={900}
+    autoplay={true}
+    autoplayDelay={3000}
+    pauseOnHover={true}
+    loop={true}
+    round={false}
+  />
+</div>
     
       
     </div>
