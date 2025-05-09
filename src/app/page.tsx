@@ -64,8 +64,8 @@ export default function Home() {
         style={{ backgroundColor: '#FFB5CA' }}
       />
       
-      {/* 3D Canvas - fixed size and position */}
-      <div className="fixed inset-0 z-20">
+      {/* 3D Canvas - fixed size and position, covering the entire page */}
+      <div className="fixed inset-0 z-20 w-full h-full">
         <Canvas
           camera={{ position: [0, 0, 15], fov: 45 }}
           style={{ position: 'absolute', inset: 0 }}

@@ -80,9 +80,9 @@ export default function Logo3D({
       ease: 'power2.inOut'
     }, 0)
     
-    // Camera zooms in slightly
+    // Camera zoom - on le garde mais modéré
     timeline.to(camera.position, {
-      z: 8,  // Closer, but not too close
+      z: 10,  // Un zoom plus léger
       duration: 1.5,
       ease: 'power2.out'
     }, 0)
@@ -110,20 +110,23 @@ export default function Logo3D({
     
     animatingRef.current = true
     
-    // Calculate header position
-    // We want the logo to move to the center top of the header
-    const headerPosX = 0  // Center horizontally
-    const headerPosY = viewport.height / 2 - 0.8  // Top with some padding
+    // Position du header - en haut de l'écran (ajusté pour remonter un peu plus)
+    const headerPosY = viewport.height / 2 - 0.5  // Augmenté un peu
+    const headerPosX = 0
+    
+    console.log('Moving to header position:', { x: headerPosX, y: headerPosY, viewportHeight: viewport.height })
     
     const timeline = gsap.timeline({
       onComplete: () => {
         completedSecondPhaseRef.current = true
         animatingRef.current = false
         onTransitionComplete()
+        console.log('Final logo position:', logoRef.current?.position)
       }
     })
     
-    // Move logo to header position
+    // IMPORTANT: Déplacer le logo seul, sans affecter la caméra
+    // 1. Déplacer le logo vers le haut
     timeline.to(logoRef.current.position, {
       x: headerPosX,
       y: headerPosY,
@@ -131,20 +134,11 @@ export default function Logo3D({
       ease: 'power3.inOut'
     }, 0)
     
-    // Scale logo down to fit in header
+    // 2. Réduire légèrement l'échelle du logo
     timeline.to(logoRef.current.scale, {
-      x: 0.2,
-      y: 0.2,
-      z: 0.2,
-      duration: 1.5,
-      ease: 'power3.inOut'
-    }, 0)
-    
-    // Move camera to follow logo
-    timeline.to(camera.position, {
-      x: headerPosX,
-      y: headerPosY,
-      z: 4,  // Closer to see the smaller logo
+      x: 0.5,
+      y: 0.5,
+      z: 0.5,
       duration: 1.5,
       ease: 'power3.inOut'
     }, 0)
@@ -152,7 +146,7 @@ export default function Logo3D({
     return () => {
       timeline.kill()
     }
-  }, [animationPhase, viewport, camera, onTransitionComplete])
+  }, [animationPhase, viewport, onTransitionComplete])
   
   // Handle viewport resize in header position
   useEffect(() => {
@@ -162,22 +156,14 @@ export default function Logo3D({
       !completedSecondPhaseRef.current
     ) return
     
-    const headerPosX = 0  // Center horizontally
-    const headerPosY = viewport.height / 2 - 0.8
+    const headerPosY = viewport.height / 2 - 0.5  // Augmenté un peu
+    const headerPosX = 0
     
-    // Update logo position
+    // Mettre à jour la position du logo (pas la caméra)
     gsap.to(logoRef.current.position, {
       x: headerPosX,
       y: headerPosY,
-      duration: 0.3,
-      ease: 'power2.out'
-    })
-    
-    // Update camera position
-    gsap.to(camera.position, {
-      x: headerPosX,
-      y: headerPosY,
-      duration: 0.3,
+      duration: 0.5,
       ease: 'power2.out'
     })
   }, [viewport.width, viewport.height, animationPhase])
@@ -191,7 +177,7 @@ export default function Logo3D({
         logoRef.current.rotation.y += delta * 1.2
       } else {
         // Slower rotation during splash
-        logoRef.current.rotation.y += delta * 0.3
+        logoRef.current.rotation.y += delta * 0.5
       }
     }
   })
