@@ -2,82 +2,54 @@
 
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
+import Link from 'next/link'
 import Nav from './Nav'
 import Carousel from '../ReactBits/Caroussel'
-import Folder from '../ReactBits/Folder'
+import InfiniteScroll from '../ReactBits/InfiniteScroll'
+import SkillsComponent from '@/ReactBits/SkillsComponent'
+
 
 const MainContent: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
-  
-  // Créez vos éléments à mettre dans le dossier (facultatif)
-  const folderItems = [
-    <div key="1" className="w-full h-full flex items-center justify-center bg-gray-100 rounded-lg text-gray-800 text-sm font-medium">
-      Item 1
-    </div>,
-    <div key="2" className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg text-gray-800 text-sm font-medium">
-      Item 2
-    </div>,
-    <div key="3" className="w-full h-full flex items-center justify-center bg-white rounded-lg text-gray-800 text-sm font-medium">
-      Item 3
-    </div>
+
+
+  const mesCompetences = [
+    { title: "React", progress: "90%" },
+    { title: "Next.js", progress: "85%" },
+    { title: "Node.js", progress: "75%" },
+    { title: "TypeScript", progress: "80%" }
   ];
+
   
-  useEffect(() => {
-    if (!titleRef.current) return
-    
-    // Animation pour faire apparaître le titre progressivement
-    gsap.fromTo(
-      titleRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
-    )
-    
-    // Animation de la navigation, indépendamment du titre
-    if (navRef.current) {
-      gsap.fromTo(
-        navRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.6 }
-      )
-    }
-    
-  }, [])
-  
-  return (
-    <div className="pt-8 pb-20">
-      <h1 
-        ref={titleRef} 
-        className="flex pt-20 pb-8 justify-center w-full text-4xl color-[#222222] font-extrabold opacity-0 mt-12 mb-12"
-      >
-        Solutions digitales sur mesure.
-      </h1>
-
-      <div ref={navRef}>
-        <Nav />
-      </div>
-
-      <div className='flex justify-center pt-8 pb-8'>
-        <Carousel
-          baseWidth={900}
-          autoplay={true}
-          autoplayDelay={3000}
-          pauseOnHover={true}
-          loop={true}
-          round={false}
-        />
-      </div>
-
-      <div className="flex justify-center items-center pt-33 mt-8">
-        <Folder 
-          color="#FFB5CA" 
-          size={3} 
-          items={folderItems}
-          className="transform-gpu"
-        />
-      </div>
-    </div>
-  )
-}
-
-export default MainContent
+  // Liste d'items avec la palette de couleurs #222222, #FFB5CA et blanc
+  const originalItems = [
+    {
+      content: (
+        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg w-full min-h-[220px] transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden">
+          <div className="p-8 flex flex-col h-full">
+            <Link 
+              href="https://francklebeurre-expertise.fr" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="no-underline transition-colors duration-200"
+            >
+              <h3 className="text-2xl font-bold mb-4 text-[#222222] transition-colors duration-200 hover:text-[#FFB5CA]">
+                francklebeurre-expertise.fr
+              </h3>
+            </Link>
+            <p className="text-base text-[#222222] leading-relaxed mb-14">
+              L&apos;expert-comptable spécialiste<br/>
+              des professions libérales
+            </p>
+            <div className="absolute bottom-8 right-8">
+              <a 
+                href="https://francklebeurre-expertise.fr" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-[#222222] font-extrabold inline-flex items-center px-5 py-2.5  text-[#FFB5CA] rounded-lg text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-white hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
+              >
+                <span className="mr-2">Voir le projet</span>
+                <svg 
+                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" 
+                  xm

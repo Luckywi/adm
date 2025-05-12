@@ -15,7 +15,7 @@ const Nav: React.FC<NavProps> = ({
   items = [
     { label: 'Accueil', href: '#' },
     { label: 'Réalisations', href: '#services' },
-    { label: 'Formation', href: '#portfolio' },
+    { label: 'Compétence', href: '#portfolio' },
 
   ],
   initialActiveIndex = 0
