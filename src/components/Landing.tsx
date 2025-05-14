@@ -3,11 +3,11 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link'
-import Nav from '../components/Nav'
+import Nav from './Nav'
 import Carousel from '../ReactBits/Caroussel'
 import InfiniteScroll from '../ReactBits/InfiniteScroll'
-import XpCard from '../components/xpCard'
-import Footer from '../components/Footer'
+import XpCard from './xpCard'
+import Footer from './Footer'
 
 const MainContent: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import dynamic from 'next/dynamic'
 import { gsap } from 'gsap'
-import MainContent from '../pages/Landing'
+import MainContent from '../components/Landing'
 
 // Lazy-load the 3D component
 const Logo3D = dynamic(() => import('../components/Logo3D'), {
