@@ -16,7 +16,7 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ 
   items = [
     { label: 'Accueil', href: '/' },
-    { label: 'Réalisations', href: '/realisation' },
+    { label: 'Réalisations', href: '/realisations' },
     { label: 'Compétence', href: '#portfolio' },
   ],
   initialActiveIndex = 0
@@ -31,7 +31,7 @@ const Nav: React.FC<NavProps> = ({
   });
 
   return (
-    <div className="flex justify-center w-full my-8">
+    <div className="flex justify-center w-full my-8"> 
       <nav className="flex flex-wrap space-x-2 md:space-x-4 justify-center">
         {items.map((item, index) => (
           <Link 
@@ -69,4 +69,4 @@ const Nav: React.FC<NavProps> = ({
   );
 };
 
-export default Nav;
+export default Nav;  
