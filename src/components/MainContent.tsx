@@ -193,7 +193,7 @@ const MainContent: React.FC = () => {
         <Nav />
       </div>
 
-      <div className='flex justify-center pt-8 pb-8'>
+      <div className='flex justify-center pt-8'>
         <Carousel
           baseWidth={900}
           autoplay={true}
@@ -217,11 +217,12 @@ const MainContent: React.FC = () => {
             pauseOnHover={true}
             width="38rem"
             itemMinHeight={220}
-            negativeMargin="-4.5em"
+            negativeMargin="-5.5em"
           />
         </div>
-
+<div className='mt-10'>
         <XpCard />
+        </div>
       </div>
     </div>
   )

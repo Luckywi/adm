@@ -136,6 +136,7 @@ export default function Home() {
           pointerEvents: 'none' // Will be enabled by GSAP onStart
         }}
       >
+      
         <MainContent />
       </main>
     </div>

@@ -156,8 +156,8 @@ export default function Carousel({
       ref={containerRef}
       className={`relative overflow-hidden p-4 ${
         round
-          ? "rounded-full border border-white"
-          : "rounded-[24px] border-2 border-[#FFB5CA]"
+          ? "rounded-lg border border-white"
+          : "rounded-lg border-2 border-[#FFB5CA]"
       }`}
       style={{
         width: `${baseWidth}px`,
@@ -194,7 +194,7 @@ export default function Carousel({
               className={`relative shrink-0 ${
                 round
                   ? "flex flex-col items-center justify-center text-center bg-[#060606] border-0"
-                  : "bg-[#222] border border-[#222] rounded-[12px] overflow-hidden"
+                  : "bg-[#222] border border-[#222] rounded-lg overflow-hidden"
               } cursor-grab active:cursor-grabbing`}
               style={{
                 width: itemWidth,
@@ -231,7 +231,7 @@ export default function Carousel({
                     <img 
                       src={item.image} 
                       alt={item.title} 
-                      className="w-24 h-24 object-cover rounded-full mb-4" 
+                      className="w-24 h-24 object-cover rounded-lg mb-4" 
                     />
                   </div>
                   <div className="p-3">
@@ -255,7 +255,7 @@ export default function Carousel({
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`h-2 w-2 rounded-full cursor-pointer transition-colors duration-150 ${
+              className={`h-2 w-2 rounded-lg cursor-pointer transition-colors duration-150 ${
                 currentIndex % items.length === index
                   ? round
                     ? "bg-white"
