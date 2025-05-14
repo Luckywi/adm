@@ -3,10 +3,11 @@
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link'
-import Nav from './Nav'
+import Nav from '../components/Nav'
 import Carousel from '../ReactBits/Caroussel'
 import InfiniteScroll from '../ReactBits/InfiniteScroll'
-import XpCard from './xpCard'
+import XpCard from '../components/xpCard'
+import Footer from '../components/Footer'
 
 const MainContent: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -179,7 +180,7 @@ const MainContent: React.FC = () => {
   }, [])
   
   return (
-    <div className="pt-8 pb-20">
+    <div className="pt-8">
 
 
       <h1
@@ -224,7 +225,11 @@ const MainContent: React.FC = () => {
         <XpCard />
         </div>
       </div>
+      
+      <Footer />
     </div>
+
+
   )
 }
 

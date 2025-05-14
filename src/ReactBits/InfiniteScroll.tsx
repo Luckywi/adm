@@ -214,9 +214,11 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           margin-top: ${negativeMargin};
           position: relative;
           padding: 1em;
-          background: #FFB5CA;
+          background: white;
           border-radius: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          border: 2;
+          border-color: #FFB5CA;
         }
       `}</style>
 

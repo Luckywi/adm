@@ -11,7 +11,7 @@ const XpCard: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto p-1">
+    <div className="max-w-4xl mx-auto pt-8">
      <div className="rounded-lg border-2 border-[#FFB5CA] p-4 bg-white">
      <div className="bg-[#222222] rounded-lg p-4 overflow-hidden relative">
         {/* Container with overflow:visible to allow logos to extend beyond boundaries */}
