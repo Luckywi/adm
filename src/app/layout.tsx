@@ -1,6 +1,8 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ClickSpark from '../ReactBits/ClickSpark'; // Importez le composant ClickSpark
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ClickSpark 
+          sparkColor="#FFB5CA" 
+          sparkRadius={25}
+          sparkSize={10}
+          sparkCount={16}
+          extraScale={1.2}
+        >
+          {children}
+        </ClickSpark>
       </body>
     </html>
   );

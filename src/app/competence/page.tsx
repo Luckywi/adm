@@ -6,6 +6,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import FormationTimeline from '@/components/FormationTimeline';
 
+
 // Formation modules data
 const formationModules = [
   {
