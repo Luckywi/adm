@@ -42,13 +42,13 @@ const XpCard: React.FC = () => {
           </div>
 
           {/* Right Column: Formation Info and Progress Bars - 65% width */}
-          <div className="w-[65%] flex flex-col justify-between">
+          <div className="w-[65%] flex flex-col p-4 justify-between">
             {/* Formation Banner */}
             <div className="bg-[#222222] border-2 border-[#FFB5CA] rounded-lg mb-8">
               <div className="flex items-center gap-4 p-3">
-                <Image src="/oc.svg" alt="OpenClassrooms" width={80} height={80} className="w-16 h-16" />
+                <Image src="/oc.svg" alt="OpenClassrooms" width={80} height={80} className="w-27 h-27" />
                 <div>
-                  <h4 className="text-white font-bold">
+                  <h4 className="text-white text-sm font-bold">
                     Formation Développeur Web (Alternance)
                   </h4>
                   <p className="text-white text-sm">
@@ -59,7 +59,7 @@ const XpCard: React.FC = () => {
             </div>
 
             {/* Progress Bars */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               {skills.map((skill) => (
                 <div key={skill.name} className="w-full">
                   <div className="relative h-8 bg-[#222222] rounded-lg border-2 border-[#FFB5CA] overflow-hidden">
@@ -94,9 +94,9 @@ const XpCard: React.FC = () => {
             {/* Formation Banner */}
             <div className="bg-[#222222] border-2 border-[#FFB5CA] rounded-lg p-4 mb-6">
               <div className="flex items-center gap-4">
-                <Image src="/oc.svg" alt="OpenClassrooms" width={40} height={40} className="w-10 h-10" />
+                <Image src="/oc.svg" alt="OpenClassrooms" width={40} height={40} className="w-16 h-16" />
                 <div>
-                  <h3 className="text-white font-bold">
+                  <h3 className="text-white text-sm font-bold">
                     Formation Développeur Web (Alternance)
                   </h3>
                   <p className="text-white text-sm">

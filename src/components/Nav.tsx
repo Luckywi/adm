@@ -17,7 +17,7 @@ const Nav: React.FC<NavProps> = ({
   items = [
     { label: 'Accueil', href: '/' },
     { label: 'Réalisations', href: '/realisations' },
-    { label: 'Compétence', href: '#portfolio' },
+    { label: 'Compétence', href: '/competence' },
   ],
   initialActiveIndex = 0
 }) => {
