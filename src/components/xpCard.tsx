@@ -7,7 +7,7 @@ const XpCard: React.FC = () => {
     { name: 'HTML', percentage: 100, textColor: '#222222' },
     { name: 'CSS', percentage: 80, textColor: '#FFB5CA' },
     { name: 'JS', percentage: 70, textColor: '#FFB5CA' },
-    { name: 'TAILWIND', percentage: 15, textColor: '#FFB5CA' },
+    { name: 'SWIFT', percentage: 15, textColor: '#FFB5CA' },
   ];
 
   return (
