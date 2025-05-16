@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { Observer } from "gsap/dist/Observer";
 
@@ -17,7 +17,6 @@ interface InfiniteScrollProps {
   maxHeight?: string;
   negativeMargin?: string;
   items?: InfiniteScrollItem[];
-  itemMinHeight?: number;
   isTilted?: boolean;
   tiltDirection?: "left" | "right";
   autoplay?: boolean;
@@ -31,7 +30,6 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   maxHeight = "100%",
   negativeMargin = "-4rem",
   items = [],
-  itemMinHeight = 150,
   isTilted = false,
   tiltDirection = "left",
   autoplay = true,
@@ -41,10 +39,32 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détection de mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Valeurs équilibrées pour les transformations
   const getTiltTransform = (): string => {
     if (!isTilted) return "none";
+    
+    // Réduire l'effet de perspective sur mobile
+    if (isMobile) {
+      return tiltDirection === "left"
+        ? "rotateX(8deg) rotateZ(0deg) skewX(0deg)"
+        : "rotateX(8deg) rotateZ(5deg) skewX(-5deg)";
+    }
     
     // Valeurs modérées pour garantir l'effet visuel sans trop décaler le composant
     return tiltDirection === "left"
@@ -57,6 +77,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     const baseStyles = {
       transform: getTiltTransform(),
       transformOrigin: "center center",
+      width: isMobile ? "70%" : width,
     };
     
     // Ajout de styles spécifiques selon la direction
@@ -81,6 +102,11 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     return baseStyles;
   };
 
+  // Adapter l'espace entre éléments pour mobile
+  const getMobileAdjustedNegativeMargin = () => {
+    return isMobile ? "-2rem" : negativeMargin;
+  };
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -91,13 +117,60 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     const divItems = gsap.utils.toArray<HTMLDivElement>(container.children);
     if (!divItems.length) return;
 
+    // Forcer une hauteur fixe pour toutes les cartes sur mobile
+    divItems.forEach((child) => {
+      // Hauteur adaptée sur mobile (min-height et max-height) et fixe sur desktop
+      if (isMobile) {
+        child.style.height = "auto";
+        child.style.minHeight = "160px";
+        child.style.maxHeight = "190px";
+      } else {
+        child.style.height = "230px";
+      }
+      
+      // Réduire la taille des titres et boutons sur mobile
+      if (isMobile) {
+        // Obtenir les titres et les boutons dans les cartes
+        const titles = child.querySelectorAll('h3');
+        const buttons = child.querySelectorAll('a.bg-\\[\\#222222\\]');
+        const paragraphs = child.querySelectorAll('p');
+        
+        titles.forEach(title => {
+          title.classList.remove('text-2xl');
+          title.classList.add('text-lg');
+        });
+        
+        // Ajouter un <br> après chaque paragraphe sur mobile
+        paragraphs.forEach(paragraph => {
+          // Vérifier si un <br> a déjà été ajouté
+          const nextElement = paragraph.nextElementSibling;
+          if (nextElement && nextElement.tagName !== 'BR') {
+            const breakElement = document.createElement('br');
+            paragraph.parentNode?.insertBefore(breakElement, nextElement);
+          }
+        });
+        
+        buttons.forEach(button => {
+          const buttonText = button.querySelector('span');
+          if (buttonText && buttonText.textContent === "Voir le projet") {
+            buttonText.textContent = "Voir";
+          }
+        });
+      }
+    });
+
     const firstItem = divItems[0];
     const itemStyle = getComputedStyle(firstItem);
-    const itemHeight = firstItem.offsetHeight;
+    const measuredItemHeight = firstItem.offsetHeight;
     const itemMarginTop = parseFloat(itemStyle.marginTop) || 0;
-    const totalItemHeight = itemHeight + itemMarginTop;
+    
+    // Réduire l'espacement entre les éléments sur mobile
+    const totalItemHeight = isMobile 
+      ? measuredItemHeight + (itemMarginTop * 0.7) // 30% de réduction d'espacement sur mobile
+      : measuredItemHeight + itemMarginTop;
+
     const totalHeight =
-      itemHeight * items.length + itemMarginTop * (items.length - 1);
+      measuredItemHeight * items.length + itemMarginTop * (items.length - 1);
 
     const wrapFn = gsap.utils.wrap(-totalHeight, totalHeight);
 
@@ -106,6 +179,9 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       gsap.set(child, { y });
     });
 
+    // Ajuster la sensibilité tactile pour mobile
+    const touchSensitivity = isMobile ? 0.8 : 1.0;
+    
     const observer = Observer.create({
       target: container,
       type: "wheel,touch,pointer",
@@ -118,12 +194,16 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       },
       onChange: ({ deltaY, isDragging, event }) => {
         const d = event.type === "wheel" ? -deltaY : deltaY;
-        const distance = isDragging ? d * 5 : d * 10;
+        // Adaptation de la sensibilité pour mobile
+        const distance = isDragging 
+          ? d * (isMobile ? 3 : 5) 
+          : d * (isMobile ? 6 : 10);
+        
         divItems.forEach((child) => {
           gsap.to(child, {
-            duration: 0.5,
+            duration: isMobile ? 0.3 : 0.5, // Animation plus rapide sur mobile
             ease: "expo.out",
-            y: `+=${distance}`,
+            y: `+=${distance * touchSensitivity}`,
             modifiers: {
               y: gsap.utils.unitize(wrapFn),
             },
@@ -135,7 +215,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     let rafId: number;
     if (autoplay) {
       const directionFactor = autoplayDirection === "down" ? 1 : -1;
-      const speedPerFrame = autoplaySpeed * directionFactor;
+      // Réduire la vitesse sur mobile pour une meilleure lisibilité
+      const speedPerFrame = autoplaySpeed * directionFactor * (isMobile ? 0.7 : 1.0);
 
       const tick = () => {
         divItems.forEach((child) => {
@@ -159,12 +240,18 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
         container.addEventListener("mouseenter", stopTicker);
         container.addEventListener("mouseleave", startTicker);
+        
+        // Ajouter pause sur touch pour mobile
+        container.addEventListener("touchstart", stopTicker);
+        container.addEventListener("touchend", startTicker);
 
         return () => {
           observer.kill();
           stopTicker();
           container.removeEventListener("mouseenter", stopTicker);
           container.removeEventListener("mouseleave", startTicker);
+          container.removeEventListener("touchstart", stopTicker);
+          container.removeEventListener("touchend", startTicker);
         };
       } else {
         return () => {
@@ -187,6 +274,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     isTilted,
     tiltDirection,
     negativeMargin,
+    isMobile,
+    width,
   ]);
 
   return (
@@ -200,25 +289,29 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           justify-content: center;
           align-items: center;
           width: 100%;
-          perspective: 1000px; /* Ajout d'un point de perspective au wrapper */
+          perspective: ${isMobile ? '800px' : '1000px'}; /* Réduire la perspective sur mobile */
         }
 
         .infinite-scroll-container {
-          width: ${width};
           cursor: grab;
           transform-style: preserve-3d;
         }
 
         .infinite-scroll-item {
-          min-height: ${itemMinHeight}px;
-          margin-top: ${negativeMargin};
+          height: ${isMobile ? 'auto' : '230px'};
+          min-height: ${isMobile ? '160px' : '230px'};
+          max-height: ${isMobile ? '190px' : 'none'};
+          margin-top: ${getMobileAdjustedNegativeMargin()};
           position: relative;
-          padding: 1em;
+          padding: ${isMobile ? '0.6em' : '1em'};
           background: white;
           border-radius: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          border: 2;
-          border-color: #FFB5CA;
+          border: ${isMobile ? 'none' : '2px solid #FFB5CA'};
+          transform: ${isMobile ? 'scale(0.95)' : 'scale(1)'};
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
         }
       `}</style>
 

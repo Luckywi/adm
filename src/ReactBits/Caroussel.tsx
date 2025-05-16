@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
 
-
 export interface CarouselItem {
   title: string;
   description: string;
   id: number;
-  image: string; // Changé de icon à image
+  image: string;
 }
 
 export interface CarouselProps {
@@ -24,25 +23,25 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     title: "Site Vitrine",
     description: "Image de marque percutante avec optimisation SEO avancée",
     id: 1,
-    image: "./vitrine.png", // Remplacé par une image
+    image: "./vitrine.png",
   },
   {
     title: "Solution de Réservation",
     description: "Plateforme complète avec portail client et interface d'administration mobile",
     id: 2,
-    image: "./rdv.png", // Remplacé par une image
+    image: "./rdv.png",
   },
   {
     title: "Design 3D",
     description: "Icônes et modèles 3D sur mesure pour votre identité visuelle",
     id: 3,
-    image: "./3d.png", // Remplacé par une image
+    image: "./3d.png",
   },
   {
     title: "Motion Design",
     description: "Animations vidéo pour campagnes publicitaires et contenus pédagogiques",
     id: 4,
-    image: "/images/motion-design.jpg", // Remplacé par une image
+    image: "/images/motion-design.jpg",
   },
 ];
 
@@ -61,7 +60,9 @@ export default function Carousel({
   round = false,
 }: CarouselProps): JSX.Element {
   const containerPadding = 16;
-  const itemWidth = baseWidth - containerPadding * 2;
+  const [containerWidth, setContainerWidth] = useState(baseWidth);
+  const [isMobile, setIsMobile] = useState(false);
+  const itemWidth = containerWidth - containerPadding * 2;
   const trackItemOffset = itemWidth + GAP;
 
   const carouselItems = loop ? [...items, items[0]] : items;
@@ -71,6 +72,33 @@ export default function Carousel({
   const [isResetting, setIsResetting] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Gestion du responsive
+  useEffect(() => {
+    const updateDimensions = () => {
+      // Détection des appareils mobiles
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      // Ajustement de la largeur du carousel en fonction de la taille d'écran
+      if (mobile) {
+        // Sur mobile: utiliser presque toute la largeur de l'écran
+        setContainerWidth(Math.min(window.innerWidth - 32, baseWidth));
+      } else {
+        // Sur desktop: utiliser la taille par défaut
+        setContainerWidth(baseWidth);
+      }
+    };
+
+    // Mise à jour initiale
+    updateDimensions();
+
+    // Écoute des changements de taille d'écran
+    window.addEventListener('resize', updateDimensions);
+    
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, [baseWidth]);
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -157,11 +185,13 @@ export default function Carousel({
       className={`relative overflow-hidden p-4 ${
         round
           ? "rounded-lg border border-white"
-          : "rounded-lg border-2 border-[#FFB5CA]"
+          : isMobile 
+            ? "rounded-lg" // Sans bordure rose sur mobile
+            : "rounded-lg border-2 border-[#FFB5CA]" // Bordure rose sur desktop
       }`}
       style={{
-        width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px` }),
+        width: `${containerWidth}px`,
+        ...(round && { height: `${containerWidth}px` }),
       }}
     >
       <motion.div
@@ -205,21 +235,23 @@ export default function Carousel({
               transition={effectiveTransition}
             >
               {!round && (
-                <div className="flex flex-row">
-                  {/* Contenu texte à gauche */}
-                  <div className="p-5 flex flex-col justify-center w-2/3">
-                    <div className="mb-1 font-black text-lg text-white">
+                <div className="flex flex-col md:flex-row">
+                  {/* Contenu texte à gauche (en haut sur mobile) */}
+                  <div className="p-4 md:p-5 flex flex-col justify-center w-full md:w-2/3">
+                    <div className="mb-1 font-black text-base md:text-lg text-white">
                       {item.title}
                     </div>
-                    <p className="text-sm text-white">{item.description}</p>
+                    <p className="text-xs md:text-sm text-white">
+                      {item.description}
+                    </p>
                   </div>
                   
-                  {/* Image à droite */}
-                  <div className="w-1/3 h-full">
+                  {/* Image à droite (ou en bas sur mobile) */}
+                  <div className="w-full md:w-1/3 h-16 md:h-full flex justify-center items-center">
                     <img 
                       src={item.image} 
                       alt={item.title} 
-                      className="w-4/5 h-4/5 object-cover" 
+                      className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
                     />
                   </div>
                 </div>
@@ -231,14 +263,16 @@ export default function Carousel({
                     <img 
                       src={item.image} 
                       alt={item.title} 
-                      className="w-24 h-24 object-cover rounded-lg mb-4" 
+                      className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg mb-2 md:mb-4" 
                     />
                   </div>
-                  <div className="p-3">
-                    <div className="mb-1 font-black text-lg text-white">
+                  <div className="p-2 md:p-3">
+                    <div className="mb-1 font-black text-base md:text-lg text-white">
                       {item.title}
                     </div>
-                    <p className="text-sm text-white">{item.description}</p>
+                    <p className="text-xs md:text-sm text-white">
+                      {item.description}
+                    </p>
                   </div>
                 </>
               )}
@@ -248,10 +282,10 @@ export default function Carousel({
       </motion.div>
       <div
         className={`flex w-full justify-center ${
-          round ? "absolute z-20 bottom-12 left-1/2 -translate-x-1/2" : ""
+          round ? "absolute z-20 bottom-8 md:bottom-12 left-1/2 -translate-x-1/2" : ""
         }`}
       >
-        <div className="mt-4 flex w-[150px] justify-between px-8">
+        <div className="mt-4 flex w-[120px] md:w-[150px] justify-between px-4 md:px-8">
           {items.map((_, index) => (
             <motion.div
               key={index}
