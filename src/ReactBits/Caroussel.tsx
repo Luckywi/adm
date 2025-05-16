@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, PanInfo, useMotionValue, useTransform } from "framer-motion";
+import { motion, PanInfo, useMotionValue, useTransform, MotionValue, SpringOptions } from "framer-motion";
+import type { ReactElement } from 'react';
 
 export interface CarouselItem {
   title: string;
@@ -17,6 +18,98 @@ export interface CarouselProps {
   loop?: boolean;
   round?: boolean;
 }
+
+// Composant d'élément de carousel pour isoler l'utilisation de useTransform
+interface CarouselItemComponentProps {
+  item: CarouselItem;
+  index: number;
+  x: MotionValue<number>; // Type correct pour MotionValue
+  trackItemOffset: number;
+  itemWidth: number;
+  round: boolean;
+  effectiveTransition: SpringOptions | { duration: number }; // Type correct pour les transitions
+  isMobile: boolean;
+}
+
+// Ce composant isolé permet d'utiliser useTransform correctement
+const CarouselItemComponent = ({
+  item,
+  index,
+  x,
+  trackItemOffset,
+  itemWidth,
+  round,
+  effectiveTransition,
+}: CarouselItemComponentProps): ReactElement => {
+  const range = [
+    -(index + 1) * trackItemOffset,
+    -index * trackItemOffset,
+    -(index - 1) * trackItemOffset,
+  ];
+  const outputRange = [90, 0, -90];
+  // Utilisation correcte de useTransform dans un composant React
+  const rotateY = useTransform(x, range, outputRange, { clamp: false });
+
+  return (
+    <motion.div
+      className={`relative shrink-0 ${
+        round
+          ? "flex flex-col items-center justify-center text-center bg-[#060606] border-0"
+          : "bg-[#222] border border-[#222] rounded-lg overflow-hidden"
+      } cursor-grab active:cursor-grabbing`}
+      style={{
+        width: itemWidth,
+        height: round ? itemWidth : "auto",
+        rotateY: rotateY,
+        ...(round && { borderRadius: "50%" }),
+      }}
+      transition={effectiveTransition}
+    >
+      {!round && (
+        <div className="flex flex-col md:flex-row">
+          {/* Contenu texte à gauche (en haut sur mobile) */}
+          <div className="p-4 md:p-5 flex flex-col justify-center w-full md:w-2/3">
+            <div className="mb-1 font-black text-base md:text-lg text-white">
+              {item.title}
+            </div>
+            <p className="text-xs md:text-sm text-white">
+              {item.description}
+            </p>
+          </div>
+          
+          {/* Image à droite (ou en bas sur mobile) */}
+          <div className="w-full md:w-1/3 h-16 md:h-full flex justify-center items-center">
+            <img 
+              src={item.image} 
+              alt={item.title} 
+              className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
+            />
+          </div>
+        </div>
+      )}
+
+      {round && (
+        <>
+          <div className="p-0 m-0">
+            <img 
+              src={item.image} 
+              alt={item.title} 
+              className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg mb-2 md:mb-4" 
+            />
+          </div>
+          <div className="p-2 md:p-3">
+            <div className="mb-1 font-black text-base md:text-lg text-white">
+              {item.title}
+            </div>
+            <p className="text-xs md:text-sm text-white">
+              {item.description}
+            </p>
+          </div>
+        </>
+      )}
+    </motion.div>
+  );
+};
 
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
@@ -48,7 +141,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
 const DRAG_BUFFER = 0;
 const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
-const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
+const SPRING_OPTIONS: SpringOptions = {stiffness: 300, damping: 30 };
 
 export default function Carousel({
   items = DEFAULT_ITEMS,
@@ -58,7 +151,7 @@ export default function Carousel({
   pauseOnHover = false,
   loop = false,
   round = false,
-}: CarouselProps): JSX.Element {
+}: CarouselProps): ReactElement {
   const containerPadding = 16;
   const [containerWidth, setContainerWidth] = useState(baseWidth);
   const [isMobile, setIsMobile] = useState(false);
@@ -138,7 +231,7 @@ export default function Carousel({
     pauseOnHover,
   ]);
 
-  const effectiveTransition = isResetting ? { duration: 0 } : SPRING_OPTIONS;
+  const effectiveTransition: SpringOptions | { duration: number } = isResetting ? { duration: 0 } : SPRING_OPTIONS;
 
   const handleAnimationComplete = () => {
     if (loop && currentIndex === carouselItems.length - 1) {
@@ -170,7 +263,15 @@ export default function Carousel({
     }
   };
 
-  const dragProps = loop
+  // Typage correct des propriétés de contraintes de glissement
+  type DragConstraintProps = {
+    dragConstraints?: {
+      left: number;
+      right: number;
+    }
+  };
+  
+  const dragProps: DragConstraintProps = loop
     ? {}
     : {
         dragConstraints: {
@@ -210,75 +311,19 @@ export default function Carousel({
         transition={effectiveTransition}
         onAnimationComplete={handleAnimationComplete}
       >
-        {carouselItems.map((item, index) => {
-          const range = [
-            -(index + 1) * trackItemOffset,
-            -index * trackItemOffset,
-            -(index - 1) * trackItemOffset,
-          ];
-          const outputRange = [90, 0, -90];
-          const rotateY = useTransform(x, range, outputRange, { clamp: false });
-          return (
-            <motion.div
-              key={index}
-              className={`relative shrink-0 ${
-                round
-                  ? "flex flex-col items-center justify-center text-center bg-[#060606] border-0"
-                  : "bg-[#222] border border-[#222] rounded-lg overflow-hidden"
-              } cursor-grab active:cursor-grabbing`}
-              style={{
-                width: itemWidth,
-                height: round ? itemWidth : "auto",
-                rotateY: rotateY,
-                ...(round && { borderRadius: "50%" }),
-              }}
-              transition={effectiveTransition}
-            >
-              {!round && (
-                <div className="flex flex-col md:flex-row">
-                  {/* Contenu texte à gauche (en haut sur mobile) */}
-                  <div className="p-4 md:p-5 flex flex-col justify-center w-full md:w-2/3">
-                    <div className="mb-1 font-black text-base md:text-lg text-white">
-                      {item.title}
-                    </div>
-                    <p className="text-xs md:text-sm text-white">
-                      {item.description}
-                    </p>
-                  </div>
-                  
-                  {/* Image à droite (ou en bas sur mobile) */}
-                  <div className="w-full md:w-1/3 h-16 md:h-full flex justify-center items-center">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
-                    />
-                  </div>
-                </div>
-              )}
-
-              {round && (
-                <>
-                  <div className="p-0 m-0">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg mb-2 md:mb-4" 
-                    />
-                  </div>
-                  <div className="p-2 md:p-3">
-                    <div className="mb-1 font-black text-base md:text-lg text-white">
-                      {item.title}
-                    </div>
-                    <p className="text-xs md:text-sm text-white">
-                      {item.description}
-                    </p>
-                  </div>
-                </>
-              )}
-            </motion.div>
-          );
-        })}
+        {carouselItems.map((item, index) => (
+          <CarouselItemComponent
+            key={index}
+            item={item}
+            index={index}
+            x={x}
+            trackItemOffset={trackItemOffset}
+            itemWidth={itemWidth}
+            round={round}
+            effectiveTransition={effectiveTransition}
+            isMobile={isMobile}
+          />
+        ))}
       </motion.div>
       <div
         className={`flex w-full justify-center ${

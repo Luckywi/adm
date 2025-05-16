@@ -11,21 +11,25 @@ import XpCard from './xpCard'
 import Footer from './Footer'
 
 const MainContent: React.FC = () => {
+  // Références pour les animations
   const titleRef = useRef<HTMLHeadingElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
+  
+  // État pour la largeur du carousel
   const [carouselWidth, setCarouselWidth] = useState(900);
-
+  
+  // Animation des éléments à l'entrée
   useEffect(() => {
     if (!titleRef.current) return
     
-    // Animation pour faire apparaître le titre progressivement
+    // Animation du titre
     gsap.fromTo(
       titleRef.current,
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
     )
     
-    // Animation de la navigation, indépendamment du titre
+    // Animation de la navigation
     if (navRef.current) {
       gsap.fromTo(
         navRef.current,
@@ -33,10 +37,9 @@ const MainContent: React.FC = () => {
         { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.6 }
       )
     }
-    
   }, []) 
 
-  // Liste d'items avec la palette de couleurs #222222, #FFB5CA et blanc
+  // Données pour le carrousel
   const originalItems = [
     {
       content: (
@@ -175,16 +178,12 @@ const MainContent: React.FC = () => {
     },
   ];
 
-  // Solution intégrée: Dupliquer le premier élément à la fin
-  const items = [
-    ...originalItems,
-    originalItems[0] // Ajoute une copie du premier élément à la fin
-  ];
+  // Ajouter une copie du premier élément à la fin pour le carrousel infini
+  const items = [...originalItems, originalItems[0]];
 
+  // Gestion de la largeur responsive du carousel
   useEffect(() => {
     const handleResize = () => {
-      // Cette fonction sera appelée chaque fois que la fenêtre est redimensionnée
-      // pour déclencher un nouveau rendu et recalculer la taille du carousel
       setCarouselWidth(getCarouselWidth());
     };
     
@@ -196,47 +195,42 @@ const MainContent: React.FC = () => {
     };
   }, []);
 
-  // Calcul du baseWidth du carousel selon la taille d'écran
+  // Calcul adaptatif de la largeur du carousel
   const getCarouselWidth = () => {
-    if (typeof window === 'undefined') return 900; // Valeur par défaut lors du SSR
+    if (typeof window === 'undefined') return 900; // Valeur par défaut pour SSR
     
     const windowWidth = window.innerWidth;
     
     if (windowWidth < 640) {
-      // Pour les petits mobiles
-      return Math.min(windowWidth - 32, 350); // -32px pour les marges
+      return Math.min(windowWidth - 32, 350); // Petits mobiles
     } else if (windowWidth < 768) {
-      // Pour les grands mobiles et petites tablettes
-      return Math.min(windowWidth - 48, 450);
+      return Math.min(windowWidth - 48, 450); // Grands mobiles et petites tablettes
     } else if (windowWidth < 1024) {
-      // Pour les tablettes
-      return 600;
+      return 600; // Tablettes
     } else {
-      // Pour les desktops
-      return 900;
+      return 900; // Desktops
     }
   };
 
   return (
     <div className="pt-4 md:pt-8">
-      {/* Titre avec largeur limitée à 70% et padding top augmenté en mobile */}
+      {/* Titre principal */}
       <h1
         ref={titleRef}
-        className="flex pt-24 md:pt-20 pb-0 md:pb-8 justify-center w-full text-2xl md:text-4xl text-[#222222] font-extrabold opacity-0 mt-8 md:mt-12 mb-4 md:mb-12 px-4 text-center"
+        className="flex pt-24 md:pt-20 pb-6 md:pb-8 justify-center w-full text-2xl md:text-4xl text-[#222222] font-extrabold opacity-0 mt-8 md:mt-12 mb-8 md:mb-12 px-4 text-center"
       >
         <span className="w-[70%]">Solutions digitales sur mesure.</span>
       </h1>
 
-      {/* Navigation traditionnelle - visible sur desktop uniquement sur la Landing */}
+      {/* Navigation desktop */}
       <div ref={navRef} className="hidden md:block">
         <Nav />
       </div>
 
-      {/* Navigation mobile uniquement pour la page Landing */}
-      <div className="md:hidden">
-        <MobileNav />
-      </div>
+      {/* Navigation mobile - intégrée directement sans div supplémentaire */}
+      <MobileNav />
 
+      {/* Carousel de projets */}
       <div className='flex justify-center pt-4 md:pt-8 px-4'>
         <Carousel
           baseWidth={carouselWidth}
@@ -248,12 +242,15 @@ const MainContent: React.FC = () => {
         />
       </div>
 
+      {/* Section d'expérience */}
       <div className="mt-12 md:mt-16 mb-12 md:mb-16">
+        {/* Animation de défilement infini */}
         <div 
           style={{
-            height: '230px', // Hauteur fixe pour le conteneur à 230px
+            height: '230px',
             position: 'relative', 
             marginTop: '30px',
+            paddingBottom: '0px', 
             width: '100%', 
             display: 'flex',
             justifyContent: 'center'
@@ -272,11 +269,13 @@ const MainContent: React.FC = () => {
           />
         </div>
         
+        {/* Carte d'expérience */}
         <div className='mt-8 md:mt-10 px-4'>
           <XpCard />
         </div>
       </div>
       
+      {/* Pied de page */}
       <Footer />
     </div>
   )

@@ -110,13 +110,13 @@ export default function LesAiles() {
           >
             {/* Premier paragraphe toujours visible - réduit à deux lignes max */}
             <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-none">
-              Association de yoga implantée à Lyon depuis 10 ans, Les Ailes disposait d'une clientèle fidèle mais exclusivement locale. Malgré la qualité de ses cours et la passion de ses instructeurs, son rayonnement était limité par l'absence totale de présence en ligne et une communication reposant uniquement sur le bouche-à-oreille.
+              Association de yoga implantée à Lyon depuis 10 ans, Les Ailes disposait d&apos;une clientèle fidèle mais exclusivement locale. Malgré la qualité de ses cours et la passion de ses instructeurs, son rayonnement était limité par l&apos;absence totale de présence en ligne et une communication reposant uniquement sur le bouche-à-oreille.
             </p>
             
             {/* Contenu supplémentaire pour mobile - conditionnel */}
             <div className={`${showFullText ? 'block' : 'hidden md:block'}`}>
               <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
-                Notre intervention a consisté à créer leur première vitrine digitale : un site épuré mais chaleureux, reflétant l'essence et les valeurs de l'association. Les nouveaux membres peuvent désormais découvrir l'association en ligne, consulter les horaires et s'inscrire directement via un formulaire sécurisé.
+                Notre intervention a consisté à créer leur première vitrine digitale : un site épuré mais chaleureux, reflétant l&apos;essence et les valeurs de l&apos;association. Les nouveaux membres peuvent désormais découvrir l&apos;association en ligne, consulter les horaires et s&apos;inscrire directement via un formulaire sécurisé.
               </p>
             </div>
             

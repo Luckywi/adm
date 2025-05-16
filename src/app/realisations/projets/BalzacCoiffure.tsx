@@ -110,13 +110,13 @@ export default function BalzacCoiffure() {
           >
             {/* Premier paragraphe toujours visible - réduit à deux lignes max */}
             <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-none">
-              Institution de Décines depuis plus de 30 ans, le salon de coiffure Le Balzac faisait face à un défi majeur : faute de présence digitale propre, il était devenu dépendant des plateformes comme Planity et Kute. Ces services, bien qu'apportant une clientèle, imposaient des commissions élevées et des rabais considérables sur les prestations.
+              Institution de Décines depuis plus de 30 ans, le salon de coiffure Le Balzac faisait face à un défi majeur : faute de présence digitale propre, il était devenu dépendant des plateformes comme Planity et Kute. Ces services, bien qu&apos;apportant une clientèle, imposaient des commissions élevées et des rabais considérables sur les prestations.
             </p>
             
             {/* Contenu supplémentaire pour mobile - conditionnel */}
             <div className={`${showFullText ? 'block' : 'hidden md:block'}`}>
               <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
-                Notre approche a consisté à développer un écosystème digital complet : un site responsive avec système de réservation et paiement en ligne intégré, couplé à une application d'administration mobile optimisée pour iPad. Cette solution sur mesure redonne au Balzac son indépendance commerciale et lui permet de piloter son activité sans intermédiaire.
+                Notre approche a consisté à développer un écosystème digital complet : un site responsive avec système de réservation et paiement en ligne intégré, couplé à une application d&apos;administration mobile optimisée pour iPad. Cette solution sur mesure redonne au Balzac son indépendance commerciale et lui permet de piloter son activité sans intermédiaire.
               </p>
             </div>
             

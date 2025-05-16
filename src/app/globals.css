@@ -22,6 +22,14 @@ body {
   overflow-x: hidden;
 }
 
+html, body {
+  height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
 /* Transitions fluides */
 .transition-all {
   transition-property: all;

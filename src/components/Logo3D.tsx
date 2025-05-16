@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { Group } from 'three'
 import { gsap } from 'gsap'
+import { Object3D, Mesh } from 'three'
 
 // Preload the model
 useGLTF.preload('/ADM.glb')
@@ -32,13 +33,13 @@ export default function Logo3D({
   // Set the logo color to white
   useEffect(() => {
     if (scene) {
-      scene.traverse((child: any) => {
-        if (child.isMesh) {
-          if (child.material) {
-            child.material.color.set(0xFFFFFF)
-          }
-          child.castShadow = true
-          child.receiveShadow = true
+      scene.traverse((child: Object3D) => {
+        if ((child as Mesh).isMesh) {
+          const mesh = child as Mesh
+
+      
+          mesh.castShadow = true
+          mesh.receiveShadow = true
         }
       })
     }
@@ -97,7 +98,7 @@ export default function Logo3D({
     return () => {
       timeline.kill()
     }
-  }, [animationPhase, camera, onInitialAnimationComplete])
+  }, [scene, camera])
   
   // Phase 2: Transition to header (center top)
   useEffect(() => {

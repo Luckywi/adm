@@ -110,7 +110,7 @@ export default function FranckLebeurre() {
           >
             {/* Premier paragraphe toujours visible - réduit à deux lignes max */}
             <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed line-clamp-2 md:line-clamp-none">
-              Ce cabinet d'expertise comptable, fort de plus de deux décennies d'expérience auprès des professions libérales, se distinguait par une réputation d'excellence mais souffrait d'une absence totale sur le web. Leur croissance, bien que constante, reposait exclusivement sur le bouche-à-oreille, limitant considérablement leur potentiel de développement.
+              Ce cabinet d&apos;expertise comptable, fort de plus de deux décennies d&apos;expérience auprès des professions libérales, se distinguait par une réputation d&apos;excellence mais souffrait d&apos;une absence totale sur le web. Leur croissance, bien que constante, reposait exclusivement sur le bouche-à-oreille, limitant considérablement leur potentiel de développement.
             </p>
             
             {/* Contenu supplémentaire pour mobile - conditionnel */}

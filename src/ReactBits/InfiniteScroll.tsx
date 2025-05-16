@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, CSSProperties } from "react";
 import { gsap } from "gsap";
 import { Observer } from "gsap/dist/Observer";
 
@@ -23,6 +23,17 @@ interface InfiniteScrollProps {
   autoplaySpeed?: number;
   autoplayDirection?: "down" | "up";
   pauseOnHover?: boolean;
+}
+
+// Type pour les styles du container
+interface ContainerStyles extends CSSProperties {
+  transform: string;
+  transformOrigin: string;
+  width: string;
+  position?: "relative";
+  left?: string;
+  right?: string;
+  margin?: string;
 }
 
 const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
@@ -73,8 +84,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   };
 
   // Calculer le décalage nécessaire pour compenser la transformation
-  const getContainerStyles = () => {
-    const baseStyles = {
+  const getContainerStyles = (): ContainerStyles => {
+    const baseStyles: ContainerStyles = {
       transform: getTiltTransform(),
       transformOrigin: "center center",
       width: isMobile ? "70%" : width,
@@ -103,7 +114,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   };
 
   // Adapter l'espace entre éléments pour mobile
-  const getMobileAdjustedNegativeMargin = () => {
+  const getMobileAdjustedNegativeMargin = (): string => {
     return isMobile ? "-2rem" : negativeMargin;
   };
 
@@ -212,7 +223,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       },
     });
 
-    let rafId: number;
+    let rafId = 0; // Initialiser avec 0 au lieu de undefined
+    
     if (autoplay) {
       const directionFactor = autoplayDirection === "down" ? 1 : -1;
       // Réduire la vitesse sur mobile pour une meilleure lisibilité
@@ -233,9 +245,19 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       rafId = requestAnimationFrame(tick);
 
       if (pauseOnHover) {
-        const stopTicker = () => rafId && cancelAnimationFrame(rafId);
+        // Correction: utiliser une instruction conditionnelle complète
+        const stopTicker = () => {
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = 0; // Réinitialiser rafId après l'annulation
+          }
+        };
+        
         const startTicker = () => {
-          rafId = requestAnimationFrame(tick);
+          // Ne redémarrer que si rafId est à 0 (pas déjà en cours)
+          if (rafId === 0) {
+            rafId = requestAnimationFrame(tick);
+          }
         };
 
         container.addEventListener("mouseenter", stopTicker);
@@ -247,7 +269,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
         return () => {
           observer.kill();
-          stopTicker();
+          stopTicker(); // Utiliser stopTicker ici aussi
           container.removeEventListener("mouseenter", stopTicker);
           container.removeEventListener("mouseleave", startTicker);
           container.removeEventListener("touchstart", stopTicker);
@@ -256,14 +278,21 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       } else {
         return () => {
           observer.kill();
-          rafId && cancelAnimationFrame(rafId);
+          // Correction: utiliser une instruction conditionnelle complète
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = 0;
+          }
         };
       }
     }
 
     return () => {
       observer.kill();
-      if (rafId) cancelAnimationFrame(rafId);
+      // Correction: utiliser une instruction conditionnelle complète
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, [
     items,
