@@ -1,10 +1,12 @@
-// src/app/realisations/layout.tsx
+// src/app/realisations/Layout.tsx
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Réalisations | ADM - Solutions Digitales sur Mesure",
   description: "Découvrez les projets web réalisés par ADM, des sites vitrines aux solutions de réservation en ligne.",
   keywords: "projets web, réalisations, sites internet, portfolio, développement web, Lyon",
+  // Ajout de metadataBase pour résoudre l'avertissement
+  metadataBase: new URL('https://adm-digital.fr'),
   openGraph: {
     title: "Réalisations | ADM - Solutions Digitales sur Mesure",
     description: "Découvrez les projets web réalisés par ADM, des sites vitrines aux solutions de réservation en ligne.",

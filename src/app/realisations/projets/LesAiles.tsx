@@ -1,13 +1,23 @@
 // src/app/realisations/projets/LesAiles.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Script from 'next/script';
 
 export default function LesAiles() {
   // State pour gérer l'affichage du texte complet en mobile
   const [showFullText, setShowFullText] = useState(false);
+  // State pour détecter si on est sur mobile
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détecter si on est sur mobile côté client uniquement
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Schema.org JSON-LD pour le référencement
   const schemaData = {
@@ -52,8 +62,8 @@ export default function LesAiles() {
                 loading="lazy"
                 sandbox="allow-same-origin allow-scripts"
                 style={{ 
-                  minWidth: window.innerWidth <= 768 ? 'auto' : '1200px', 
-                  transform: window.innerWidth <= 768 ? 'scale(1)' : 'scale(1)', 
+                  minWidth: isMobile ? 'auto' : '1200px', 
+                  transform: isMobile ? 'scale(1)' : 'scale(1)', 
                   transformOrigin: 'center top' 
                 }}
               />

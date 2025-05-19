@@ -1,3 +1,5 @@
+// Modification de next.config.ts pour ajouter la configuration des images
+
 // next.config.ts
 import type { NextConfig } from 'next';
 
@@ -9,6 +11,15 @@ const nextConfig: NextConfig = {
       use: ['@svgr/webpack'],
     });
     return config;
+  },
+  // Ajout de la configuration des images
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
 };
 

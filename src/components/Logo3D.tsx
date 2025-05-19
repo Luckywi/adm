@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useRef, useEffect } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
@@ -98,7 +98,7 @@ export default function Logo3D({
     return () => {
       timeline.kill()
     }
-  }, [scene, camera])
+  }, [scene, camera, animationPhase, onInitialAnimationComplete])
   
   // Phase 2: Transition to header (center top)
   useEffect(() => {

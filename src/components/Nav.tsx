@@ -1,3 +1,4 @@
+'use client';
 // src/components/Nav.tsx (updated)
 import React, { useState } from 'react';
 import Link from 'next/link';
