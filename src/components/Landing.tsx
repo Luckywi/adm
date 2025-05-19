@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link'
 import Nav from './Nav'
+import NavMobile from './NavMobile' // Importation du nouveau composant
 import Carousel from '../ReactBits/Caroussel'
 import InfiniteScroll from '../ReactBits/InfiniteScroll'
 import XpCard from './xpCard'
@@ -16,6 +17,22 @@ const MainContent: React.FC = () => {
   
   // État pour la largeur du carousel
   const [carouselWidth, setCarouselWidth] = useState(900);
+  // État pour la détection du mobile
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Détection de mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   
   // Animation des éléments à l'entrée
   useEffect(() => {
@@ -213,10 +230,13 @@ const MainContent: React.FC = () => {
 
   return (
     <div className="pt-4 md:pt-8">
-      {/* Titre principal */}
+      {/* Navigation mobile uniquement sur mobile */}
+      {isMobile && <NavMobile />}
+      
+      {/* Titre principal - padding-bottom ajusté pour mobile */}
       <h1
         ref={titleRef}
-        className="flex pt-24 md:pt-20 pb-6 md:pb-8 justify-center w-full text-2xl md:text-4xl text-[#222222] font-extrabold opacity-0 mt-8 md:mt-12 mb-8 md:mb-12 px-4 text-center"
+        className="flex pt-24 md:pt-20 pb-1 md:pb-8 justify-center w-full text-2xl md:text-4xl text-[#222222] font-extrabold opacity-0 mt-8 md:mt-12 mb-4 md:mb-12 px-4 text-center"
       >
         <span className="w-[70%]">Solutions digitales sur mesure.</span>
       </h1>
@@ -225,7 +245,6 @@ const MainContent: React.FC = () => {
       <div ref={navRef} className="hidden md:block">
         <Nav />
       </div>
-
 
       {/* Carousel de projets */}
       <div className='flex justify-center pt-4 md:pt-8 px-4'>
