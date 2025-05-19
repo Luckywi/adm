@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap'
 import Link from 'next/link'
 import Nav from './Nav'
-import MobileNav from '../components/MobileNav'
 import Carousel from '../ReactBits/Caroussel'
 import InfiniteScroll from '../ReactBits/InfiniteScroll'
 import XpCard from './xpCard'
@@ -227,8 +226,6 @@ const MainContent: React.FC = () => {
         <Nav />
       </div>
 
-      {/* Navigation mobile - intégrée directement sans div supplémentaire */}
-      <MobileNav />
 
       {/* Carousel de projets */}
       <div className='flex justify-center pt-4 md:pt-8 px-4'>
