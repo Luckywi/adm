@@ -59,7 +59,7 @@ const Nav: React.FC<NavProps> = ({
               mb-2
               ${activeIndex === index 
                 ? 'bg-[#222222] font-extrabold text-[#FFB5CA] border-transparent shadow-md hover:shadow-lg' 
-                : 'bg-white font-extrabold text-[#222222] border-[#FFB5CA] border-2 hover:bg-[#FFF5F8] hover:-translate-y-1 hover:shadow-md'}
+                : 'bg-#F8F7F4 font-extrabold text-[#222222] border-[#FFB5CA] border-2 hover:bg-[#FFF5F8] hover:-translate-y-1 hover:shadow-md'}
             `}
           >
             {item.label}

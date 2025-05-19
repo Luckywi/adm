@@ -119,7 +119,7 @@ const FormationTimeline: React.FC<FormationTimelineProps> = ({ modules }) => {
   return (
     <div 
       ref={containerRef}
-      className="w-full max-w-4xl mx-auto px-4 py-8 md:py-12 bg-white rounded-lg"
+      className="w-full max-w-4xl mx-auto px-4 py-8 md:py-12 bg-#F8F7F4 rounded-lg"
     >
       <motion.div
         variants={containerVariants}
@@ -135,8 +135,8 @@ const FormationTimeline: React.FC<FormationTimelineProps> = ({ modules }) => {
           <div className="bg-[#222222] rounded-lg p-4 inline-flex items-center shadow-sm">
             <Image src="/oc.svg" alt="OpenClassrooms" width={100} height={100} className="mr-4" />
             <div>
-              <h3 className="text-white font-bold text-sm md:text-base">Formation Développeur Web (Alternance)</h3>
-              <p className="text-white text-xs md:text-sm">Mai 2024 – Mai 2025</p>
+              <h3 className="text-[#F8F7F4] font-bold text-sm md:text-base">Formation Développeur Web (Alternance)</h3>
+              <p className="text-[#F8F7F4] text-xs md:text-sm">Mai 2024 – Mai 2025</p>
             </div>
           </div>
         </motion.div>
@@ -153,7 +153,7 @@ style={{ height: `calc(100% - 20px)` }}
           {/* Fin de la ligne avec connexion aux compétences */}
           <div className="absolute left-0 bottom-0 w-full">
             <motion.div
-              className="absolute left-4 md:left-1/2 bottom-0 w-[20px] h-[20px] z-10 bg-white rounded-full border-2 border-[#FFB5CA] flex items-center justify-center transform -translate-x-1/2"
+              className="absolute left-4 md:left-1/2 bottom-0 w-[20px] h-[20px] z-10 bg-#F8F7F4 rounded-full border-2 border-[#FFB5CA] flex items-center justify-center transform -translate-x-1/2"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 1, duration: 0.4 }}
@@ -193,7 +193,7 @@ style={{ height: `calc(100% - 20px)` }}
                     index % 2 === 0 ? 'md:ml-8 md:mr-auto' : 'md:mr-8 md:ml-auto'
                   }`}
                 >
-                  <div className="bg-white rounded-lg border-2 border-[#FFB5CA] p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                  <div className="bg-#F8F7F4 rounded-lg border-2 border-[#FFB5CA] p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                     <div className="flex flex-col h-full">
                       <h4 className="text-sm md:text-base font-bold text-[#222222] mb-1">{module.title}</h4>
                       <p className="text-[#222222] text-xs">{module.duration}</p>
@@ -219,7 +219,7 @@ style={{ height: `calc(100% - 20px)` }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.4 + index * 0.1, duration: 0.4 }}
-                className="bg-white rounded-lg border-2 border-[#FFB5CA] p-4 shadow-sm hover:shadow-md transition-all duration-300"
+                className="bg-#F8F7F4 rounded-lg border-2 border-[#FFB5CA] p-4 shadow-sm hover:shadow-md transition-all duration-300"
               >
                 <div className="flex items-start">
                   <div className="mr-4 p-2 rounded-full bg-[#FFB5CA] text-[#222222] flex-shrink-0">

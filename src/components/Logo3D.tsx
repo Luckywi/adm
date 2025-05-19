@@ -30,7 +30,7 @@ export default function Logo3D({
   const completedFirstPhaseRef = useRef(false)
   const completedSecondPhaseRef = useRef(false)
   
-  // Set the logo color to white
+  // Set the logo color to #F8F7F4
   useEffect(() => {
     if (scene) {
       scene.traverse((child: Object3D) => {

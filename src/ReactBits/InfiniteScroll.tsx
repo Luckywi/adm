@@ -161,10 +161,96 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           }
         });
         
+        // Remplacer le texte du bouton et l'icône sur mobile
         buttons.forEach(button => {
           const buttonText = button.querySelector('span');
           if (buttonText && buttonText.textContent === "Voir le projet") {
             buttonText.textContent = "Voir";
+          }
+          
+          // Remplacer l'icône de flèche par une icône de globe
+          const svgContainer = button.querySelector('svg');
+          if (svgContainer) {
+            // Créer la nouvelle icône de globe
+            const newSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            newSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            newSvg.setAttribute("width", isMobile ? "14" : "18");
+            newSvg.setAttribute("height", isMobile ? "14" : "18");
+            newSvg.setAttribute("viewBox", "0 0 24 24");
+            newSvg.setAttribute("fill", "none");
+            newSvg.setAttribute("stroke", "currentColor");
+            newSvg.setAttribute("stroke-width", "2");
+            newSvg.setAttribute("stroke-linecap", "round");
+            newSvg.setAttribute("stroke-linejoin", "round");
+            newSvg.classList.add("w-3", "h-3", "md:w-4", "md:h-4", "transition-transform", "duration-300", "group-hover:scale-110");
+            
+            // Ajouter les éléments du globe (cercle et méridiens)
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("cx", "12");
+            circle.setAttribute("cy", "12");
+            circle.setAttribute("r", "10");
+            
+            const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line1.setAttribute("x1", "2");
+            line1.setAttribute("y1", "12");
+            line1.setAttribute("x2", "22");
+            line1.setAttribute("y2", "12");
+            
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z");
+            
+            newSvg.appendChild(circle);
+            newSvg.appendChild(line1);
+            newSvg.appendChild(path);
+            
+            // Remplacer l'ancienne icône par la nouvelle
+            if (svgContainer.parentNode) {
+              svgContainer.parentNode.replaceChild(newSvg, svgContainer);
+            }
+          }
+        });
+      } else {
+        // Également remplacer l'icône sur desktop
+        const buttons = child.querySelectorAll('a.bg-\\[\\#222222\\]');
+        buttons.forEach(button => {
+          const svgContainer = button.querySelector('svg');
+          if (svgContainer) {
+            // Créer la nouvelle icône de globe
+            const newSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            newSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            newSvg.setAttribute("width", "18");
+            newSvg.setAttribute("height", "18");
+            newSvg.setAttribute("viewBox", "0 0 24 24");
+            newSvg.setAttribute("fill", "none");
+            newSvg.setAttribute("stroke", "currentColor");
+            newSvg.setAttribute("stroke-width", "2");
+            newSvg.setAttribute("stroke-linecap", "round");
+            newSvg.setAttribute("stroke-linejoin", "round");
+            newSvg.classList.add("w-4", "h-4", "transition-transform", "duration-300", "group-hover:scale-110");
+            
+            // Ajouter les éléments du globe (cercle et méridiens)
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("cx", "12");
+            circle.setAttribute("cy", "12");
+            circle.setAttribute("r", "10");
+            
+            const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line1.setAttribute("x1", "2");
+            line1.setAttribute("y1", "12");
+            line1.setAttribute("x2", "22");
+            line1.setAttribute("y2", "12");
+            
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z");
+            
+            newSvg.appendChild(circle);
+            newSvg.appendChild(line1);
+            newSvg.appendChild(path);
+            
+            // Remplacer l'ancienne icône par la nouvelle
+            if (svgContainer.parentNode) {
+              svgContainer.parentNode.replaceChild(newSvg, svgContainer);
+            }
           }
         });
       }
@@ -333,7 +419,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           margin-top: ${getMobileAdjustedNegativeMargin()};
           position: relative;
           padding: ${isMobile ? '0.6em' : '1em'};
-          background: white;
+          background: #F8F7F4;
           border-radius: 8px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           border: ${isMobile ? 'none' : '2px solid #FFB5CA'};

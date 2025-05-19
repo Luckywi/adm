@@ -72,10 +72,10 @@ const CarouselItemComponent = ({
         <div className="flex flex-col md:flex-row">
           {/* Contenu texte à gauche (en haut sur mobile) */}
           <div className="p-4 md:p-5 flex flex-col justify-center w-full md:w-2/3">
-            <div className="mb-1 font-black text-base md:text-lg text-white">
+            <div className="mb-1 font-black text-base md:text-lg text-[#F8F7F4]">
               {item.title}
             </div>
-            <p className="text-xs md:text-sm text-white">
+            <p className="text-xs md:text-sm text-[#F8F7F4]">
               {item.description}
             </p>
           </div>
@@ -103,10 +103,10 @@ const CarouselItemComponent = ({
             />
           </div>
           <div className="p-2 md:p-3">
-            <div className="mb-1 font-black text-base md:text-lg text-white">
+            <div className="mb-1 font-black text-base md:text-lg text-[#F8F7F4]">
               {item.title}
             </div>
-            <p className="text-xs md:text-sm text-white">
+            <p className="text-xs md:text-sm text-[#F8F7F4]">
               {item.description}
             </p>
           </div>
@@ -139,7 +139,7 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     title: "Motion Design",
     description: "Animations vidéo pour campagnes publicitaires et contenus pédagogiques",
     id: 4,
-    image: "/images/motion-design.jpg",
+    image: "/motion.png",
   },
 ];
 
@@ -290,7 +290,7 @@ export default function Carousel({
       ref={containerRef}
       className={`relative overflow-hidden p-4 ${
         round
-          ? "rounded-lg border border-white"
+          ? "rounded-lg border border-#F8F7F4"
           : isMobile 
             ? "rounded-lg" // Sans bordure rose sur mobile
             : "rounded-lg border-2 border-[#FFB5CA]" // Bordure rose sur desktop
@@ -342,7 +342,7 @@ export default function Carousel({
               className={`h-2 w-2 rounded-lg cursor-pointer transition-colors duration-150 ${
                 currentIndex % items.length === index
                   ? round
-                    ? "bg-white"
+                    ? "bg-#F8F7F4"
                     : "bg-[#333333]"
                   : round
                     ? "bg-[#555]"

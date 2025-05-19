@@ -104,7 +104,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
     <>
       {/* Bouton de menu mobile (+ ou X) */}
       <button 
-        className="fixed top-8 right-4 z-50 mobile-menu-button"
+        className="fixed top-6 right-4 z-50 mobile-menu-button"
         onClick={(e) => {
           e.stopPropagation();
           setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -112,7 +112,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
       >
         {isMobileMenuOpen ? (
           // Icône de fermeture (X)
-          <div className="bg-[#FFB5CA] rounded-full p-2 shadow-md">
+          <div className="bg-[#FFB5CA] rounded-full p-2">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               width="24" 
@@ -130,7 +130,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
           </div>
         ) : (
           // Icône + bordée de rose
-          <div className="bg-white rounded-full w-10 h-10 border-2 border-[#FFB5CA] flex items-center justify-center">
+          <div className="bg-#F8F7F4 rounded-full w-10 h-10 border-2 border-[#FFB5CA] flex items-center justify-center">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               width="24" 
@@ -154,7 +154,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
         {isMobileMenuOpen && (
           <motion.div 
             ref={menuRef}
-            className="fixed top-0 left-0 right-0 bg-white z-40 shadow-lg mobile-menu flex flex-col overflow-hidden"
+            className="fixed top-0 left-0 right-0 bg-[#F8F7F4] z-40 shadow-lg mobile-menu flex flex-col overflow-hidden"
             style={{ 
               height: viewportHeight, // Utiliser la hauteur exacte du viewport
               maxHeight: viewportHeight // S'assurer que le menu ne dépasse pas la hauteur visible
@@ -204,7 +204,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                         text-xl font-bold
                         ${activeIndex === index 
                           ? 'bg-[#222222] text-[#FFB5CA] shadow-md' 
-                          : 'bg-white text-[#222222] border-2 border-[#FFB5CA]'}
+                          : 'bg-#F8F7F4 text-[#222222] border-2 border-[#FFB5CA]'}
                       `}
                     >
                       {item.label}
@@ -212,14 +212,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                   </motion.div>
                 ))}
               </div>
-              
-              {/* Footer du menu avec copyright */}
-              <motion.div 
-                variants={itemVariants}
-                className="mt-auto pt-8 text-center text-sm text-[#222222] opacity-70"
-              >
-                © 2025 ADM Digital
-              </motion.div>
+            
             </div>
           </motion.div>
         )}

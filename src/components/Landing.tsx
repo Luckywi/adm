@@ -59,7 +59,7 @@ const MainContent: React.FC = () => {
   const originalItems = [
     {
       content: (
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
+        <div className="bg-#F8F7F4/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
           <div className="p-3 md:p-8 flex flex-col flex-grow">
             <Link 
               href="https://francklebeurre-expertise.fr" 
@@ -80,7 +80,7 @@ const MainContent: React.FC = () => {
                 href="https://francklebeurre-expertise.fr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-white hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
+                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-[#F8F7F4] hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
               >
                 <span className="mr-1 md:mr-2">Voir le projet</span>
                 <svg 
@@ -104,7 +104,7 @@ const MainContent: React.FC = () => {
     },
     {
       content: (
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
+        <div className="bg-#F8F7F4/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
           <div className="p-3 md:p-8 flex flex-col flex-grow">
             <Link 
               href="https://lebalzac-coiffure-decines.fr" 
@@ -125,7 +125,7 @@ const MainContent: React.FC = () => {
                 href="https://lebalzac-coiffure-decines.fr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-white hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
+                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-[#F8F7F4] hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
               >
                 <span className="mr-1 md:mr-2">Voir le projet</span>
                 <svg 
@@ -149,7 +149,7 @@ const MainContent: React.FC = () => {
     },
     {
       content: (
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
+        <div className="bg-#F8F7F4/95 backdrop-blur-sm rounded-2xl shadow-lg w-full h-full transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl relative overflow-hidden flex flex-col">
           <div className="p-3 md:p-8 flex flex-col flex-grow">
             <Link 
               href="https://lesailes.vercel.app" 
@@ -170,7 +170,7 @@ const MainContent: React.FC = () => {
                 href="https://lesailes.vercel.app" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-white hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
+                className="bg-[#222222] font-extrabold inline-flex items-center px-2 py-1.5 md:px-5 md:py-2.5 text-[#FFB5CA] rounded-lg text-xs md:text-sm font-lg transition-all duration-300 hover:bg-[#FFB5CA] hover:text-[#F8F7F4] hover:shadow-md hover:shadow-[#FFB5CA]/20 hover:translate-y-[-2px] group"
               >
                 <span className="mr-1 md:mr-2">Voir le projet</span>
                 <svg 

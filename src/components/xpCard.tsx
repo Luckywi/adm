@@ -15,7 +15,7 @@ const XpCard: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto pt-8">
      {/* Border-2 uniquement sur desktop */}
-     <div className="rounded-lg md:border-2 border-0 border-[#FFB5CA] p-4 bg-white">
+     <div className="rounded-lg md:border-2 border-0 border-[#FFB5CA] p-4 bg-#F8F7F4">
      <div className="bg-[#222222] rounded-lg p-4 overflow-hidden relative">
         {/* Container with overflow:visible to allow logos to extend beyond boundaries */}
         <div className="relative overflow-visible">
@@ -51,10 +51,10 @@ const XpCard: React.FC = () => {
               <div className="flex items-center gap-4 p-3">
                 <Image src="/oc.svg" alt="OpenClassrooms" width={80} height={80} className="w-27 h-27" />
                 <div>
-                  <h4 className="text-white text-sm font-bold">
+                  <h4 className="text-[#F8F7F4] text-sm font-bold">
                     Formation Développeur Web (Alternance)
                   </h4>
-                  <p className="text-white text-sm">
+                  <p className="text-[#F8F7F4] text-sm">
                     Mai 2024 – Mai 2025
                   </p>
                 </div>
@@ -99,10 +99,10 @@ const XpCard: React.FC = () => {
               <div className="flex items-center gap-4">
                 <Image src="/oc.svg" alt="OpenClassrooms" width={40} height={40} className="w-16 h-16" />
                 <div>
-                  <h3 className="text-white text-sm font-bold">
+                  <h3 className="text-[#F8F7F4] text-sm font-bold">
                     Formation Développeur Web (Alternance)
                   </h3>
-                  <p className="text-white text-sm">
+                  <p className="text-[#F8F7F4] text-sm">
                     Mai 2024 – Mai 2025
                   </p>
                 </div>

@@ -43,7 +43,7 @@ export default function BalzacCoiffure() {
       />
 
       {/* Conteneur principal - border supprimée en mobile */}
-      <div className="md:rounded-lg md:border-2 md:border-[#FFB5CA] md:p-4 md:bg-white">
+      <div className="md:rounded-lg md:border-2 md:border-[#FFB5CA] md:p-4 md:bg-#F8F7F4">
         {/* Conteneur principal */}
         <article className="project-container bg-[#222222] p-3 md:p-4 rounded-lg space-y-6 md:space-y-8" itemScope itemType="http://schema.org/WebSite">
           {/* Section iframe avec le bouton en haut à droite - titre déplacé en dessous */}
@@ -75,7 +75,7 @@ export default function BalzacCoiffure() {
                 href="https://www.lebalzac-coiffure-decines.fr/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-[#FFB5CA] hover:bg-white text-[#222222] font-extrabold text-xs md:text-sm py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center"
+                className="bg-[#FFB5CA] hover:bg-#F8F7F4 text-[#222222] font-extrabold text-xs md:text-sm py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center"
                 itemProp="url"
               >
                 <span className="mr-1 md:mr-2">Visiter</span>
@@ -112,7 +112,7 @@ export default function BalzacCoiffure() {
           
           {/* Description du projet - adaptée pour mobile avec option "voir plus" */}
           <motion.div 
-            className="text-white w-full md:w-4/5" 
+            className="text-[#F8F7F4] w-full md:w-4/5" 
             itemProp="description"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -142,4 +142,4 @@ export default function BalzacCoiffure() {
       </div>
     </>
   );
-}
+} 
