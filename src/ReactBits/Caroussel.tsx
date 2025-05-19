@@ -82,13 +82,13 @@ const CarouselItemComponent = ({
           
           {/* Image à droite (ou en bas sur mobile) */}
           <div className="w-full md:w-1/3 h-16 md:h-full flex justify-center items-center">
-          <Image 
-  src={item.image} 
-  alt={item.title} 
-  width={160}
-  height={160}
-  className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
-/>
+            <Image 
+              src={item.image} 
+              alt={item.title} 
+              width={160}
+              height={160}
+              className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
+            />
           </div>
         </div>
       )}
@@ -96,13 +96,11 @@ const CarouselItemComponent = ({
       {round && (
         <>
           <div className="p-0 m-0">
-          <Image 
-  src={item.image} 
-  alt={item.title} 
-  width={160}
-  height={160}
-  className="w-16 h-16 md:w-4/5 md:h-4/5 object-cover" 
-/>
+            <Image
+              src={item.image} 
+              alt={item.title} 
+              className="w-16 h-16 md:w-24 md:h-24 object-cover rounded-lg mb-2 md:mb-4" 
+            />
           </div>
           <div className="p-2 md:p-3">
             <div className="mb-1 font-black text-base md:text-lg text-white">
@@ -123,19 +121,19 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     title: "Site Vitrine",
     description: "Image de marque percutante avec optimisation SEO avancée",
     id: 1,
-    image: "./vitrine.png",
+    image: "/vitrine.png",
   },
   {
     title: "Solution de Réservation",
     description: "Plateforme complète avec portail client et interface d'administration mobile",
     id: 2,
-    image: "./rdv.png",
+    image: "/rdv.png",
   },
   {
     title: "Design 3D",
     description: "Icônes et modèles 3D sur mesure pour votre identité visuelle",
     id: 3,
-    image: "./3d.png",
+    image: "/3d.png",
   },
   {
     title: "Motion Design",
