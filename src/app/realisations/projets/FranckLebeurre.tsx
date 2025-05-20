@@ -128,6 +128,16 @@ export default function FranckLebeurre() {
               <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
                 Notre intervention a permis de créer une présence digitale complète et efficace : un site vitrine élégant reflétant leur expertise, une interface de prise de rendez-vous intuitive, et une stratégie de contenu éducatif ciblé pour optimiser leur référencement naturel.
               </p>
+              
+              {/* Stack technique */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Stack technique :</span> Next.js/Firebase/TypeScript
+              </p>
+              
+              {/* Problématiques rencontrées */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Défis techniques :</span> L&apos;optimisation SEO constituait l&apos;enjeu principal de ce projet. J&apos;ai implémenté une architecture de données structurées avec des balises Schema.org complètes pour les professionnels et services financiers, ainsi qu&apos;un système de métadonnées dynamiques pour chaque page. Le second défi majeur concernait l&apos;automatisation des communications : j&apos;ai développé un système de notifications par email basé sur Firebase Cloud Functions, permettant l&apos;envoi automatique de confirmations et rappels de rendez-vous personnalisés, tout en respectant les contraintes de délais d&apos;envoi pour maximiser les taux d&apos;ouverture.
+              </p>
             </div>
             
             {/* Bouton Voir plus/moins - uniquement sur mobile */}

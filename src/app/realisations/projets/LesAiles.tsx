@@ -128,6 +128,16 @@ export default function LesAiles() {
               <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
                 Notre intervention a consisté à créer leur première vitrine digitale : un site épuré mais chaleureux, reflétant l&apos;essence et les valeurs de l&apos;association. Les nouveaux membres peuvent désormais découvrir l&apos;association en ligne, consulter les horaires et s&apos;inscrire directement via un formulaire sécurisé.
               </p>
+              
+              {/* Stack technique */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Stack technique :</span> Next.js/TypeScript
+              </p>
+              
+              {/* Problématiques rencontrées */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Défis techniques :</span> Le défi principal sur ce projet résidait dans la création d&apos;un arrière-plan dynamique répondant au défilement. J&apos;ai développé un système de vidéo scrollable en extrayant et optimisant manuellement plus de 200 frames d&apos;une vidéo, puis en implémentant un lecteur JavaScript utilisant un canvas HTML5. Cette solution évite tout problème de performance que l&apos;utilisation d&apos;une vidéo classique aurait posé. La synchronisation précise entre le défilement et la progression des frames était particulièrement complexe, nécessitant une interpolation mathématique pour garantir des transitions fluides même à des vitesses de défilement variables ou sur des appareils à faibles performances.
+              </p>
             </div>
             
             {/* Bouton Voir plus/moins - uniquement sur mobile */}

@@ -128,6 +128,16 @@ export default function BalzacCoiffure() {
               <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
                 Notre approche a consisté à développer un écosystème digital complet : un site responsive avec système de réservation et paiement en ligne intégré, couplé à une application d&apos;administration mobile optimisée pour iPad. Cette solution sur mesure redonne au Balzac son indépendance commerciale et lui permet de piloter son activité sans intermédiaire.
               </p>
+              
+              {/* Stack technique */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Stack technique :</span> Next.js/Firebase/TypeScript
+              </p>
+              
+              {/* Problématiques rencontrées */}
+              <p className="text-sm md:text-md mb-3 md:mb-4 leading-relaxed">
+                <span className="text-[#FFB5CA] font-bold">Défis techniques :</span> La synchronisation temps réel des réservations constituait le défi majeur du projet. J&apos;ai implémenté des listeners Firestore optimisés avec une logique de désabonnement automatique, évitant ainsi les fuites mémoire. Les conflits de réservation ont été résolus grâce à un système de verrouillage temporaire des créneaux pendant la sélection, garantissant l&apos;intégrité des données même en cas de réservations simultanées. Pour l&apos;authentification, j&apos;ai développé un système personnalisé basé sur Firebase Auth avec gestion des rôles et des permissions, assurant une sécurité adaptée aux besoins du salon tout en maintenant une expérience utilisateur fluide.
+              </p>
             </div>
             
             {/* Bouton Voir plus/moins - uniquement sur mobile */}
@@ -142,4 +152,4 @@ export default function BalzacCoiffure() {
       </div>
     </>
   );
-} 
+}
